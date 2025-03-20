@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Amazon Healthcare - E-Commerce</title>
+    <link rel="stylesheet" type="text/css" href="/static/css/healthcare.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>    
+
+    <style>
+        /* General Styles */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh; /* Centers everything vertically */
+            text-align: center;
+        }
+
+        /* Container */
+        .container {
+            width: 90%;
+            max-width: 500px; /* Prevents it from becoming too wide */
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Header */
+        h1 {
+            color: #333;
+            font-size: 24px;
+            margin-bottom: 15px;
+        }
+
+        p {
+            color: #555;
+            font-size: 16px;
+            margin-bottom: 20px;
+        }
+
+        /* Buttons */
+        .btn-container {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .highlighted-btn {
+            background: #ff5722;  /* Bright orange */
+            color: white;
+            padding: 12px;
+            font-size: 16px;
+            font-weight: bold;
+            text-decoration: none;
+            border-radius: 8px;
+            transition: all 0.3s ease-in-out;
+            display: block;
+            width: 100%;
+            text-align: center;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .highlighted-btn:hover {
+            background: #e64a19;  /* Darker shade */
+            transform: scale(1.05);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 500px) {
+            .container {
+                width: 95%;
+                padding: 20px;
+            }
+
+            .highlighted-btn {
+                font-size: 14px;
+                padding: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <header>
+            <h1>Welcome to Amazon Healthcare</h1>
+        </header>
+        
+        <section>
+            <p>We offer a wide range of healthcare products, including medicines, medical equipment, and wellness items.</p>
+            <div class="btn-container">
+                <a href="{% url 'product_list' %}" class="highlighted-btn">🛍 View All Products</a>
+                <a href="{% url 'product_buy' %}" class="highlighted-btn">💳 Buy a Product</a>
+            </div>
+        </section>
+    </div>
+
+</body>
+</html>

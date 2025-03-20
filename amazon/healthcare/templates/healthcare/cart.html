@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shopping Cart</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            text-align: center;
+        }
+        h1 {
+            background-color: #0073e6;
+            color: white;
+            padding: 20px;
+            margin: 0;
+        }
+        .container {
+            width: 80%;
+            margin: 30px auto;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align: center;
+        }
+        th {
+            background-color: #0073e6;
+            color: white;
+            font-size: 16px;
+        }
+        td {
+            font-size: 16px;
+        }
+        .product-name {
+            text-align: left;
+            width: 50%;  /* Prevents text from pushing other columns */
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        .remove-btn {
+            background: #d9534f;
+            color: white;
+            padding: 8px 12px;
+            font-size: 14px;
+            font-weight: bold;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            text-decoration: none;
+            transition: background 0.3s ease-in-out;
+            display: inline-block;
+        }
+        .remove-btn:hover {
+            background: #c9302c;
+        }
+        .empty-cart {
+            font-size: 18px;
+            color: #555;
+            margin-top: 20px;
+        }
+        .continue-shopping {
+            display: inline-block;
+            margin-top: 20px;
+            background: #28a745;
+            color: white;
+            padding: 12px 18px;
+            font-size: 16px;
+            font-weight: bold;
+            border-radius: 5px;
+            text-decoration: none;
+            transition: background 0.3s;
+        }
+        .continue-shopping:hover {
+            background: #218838;
+        }
+        .cart-footer {
+            margin-top: 20px;
+            font-size: 18px;
+            font-weight: bold;
+            text-align: right;
+        }
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .container {
+                width: 95%;
+            }
+            th, td {
+                font-size: 14px;
+                padding: 8px;
+            }
+            .product-name {
+                max-width: 120px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Your Shopping Cart</h1>
+
+    <div class="container">
+        {% if cart_items %}
+            <table>
+                <thead>
+                    <tr>
+                        <th>Product</th>
+                        <th>Quantity</th>
+                        <th>Price</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for item in cart_items %}
+                        <tr>
+                            <td class="product-name" title="{{ item.product.title }}">{{ item.product.title }}</td>
+                            <td>{{ item.quantity }} pcs</td>
+                            <td>Rs {{ item.product.price }}</td>
+                            <td><a href="{% url 'remove_from_cart' item.product.id %}" class="remove-btn">Remove</a></td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+
+            <div class="cart-footer">
+                <p>Total Items: {{ cart_items|length }}</p>
+            </div>
+        {% else %}
+            <p class="empty-cart">Your cart is empty.</p>
+        {% endif %}
+
+        <a href="{% url 'product_buy' %}" class="continue-shopping">🛍️ Continue Shopping</a>
+    </div>
+
+</body>
+</html>

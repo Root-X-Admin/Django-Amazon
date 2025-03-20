@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Healthcare Products</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            text-align: center;
+        }
+
+        h1 {
+            background-color: #0073e6;
+            color: white;
+            padding: 20px;
+            margin: 0;
+        }
+
+        a {
+            text-decoration: none;
+        }
+        /* Header Styling */
+        .header {
+            background-color: #0073e6;
+            color: white;
+            padding: 20px;
+            margin: 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: relative;
+        }
+        .header h1 {
+            margin: 0;
+            flex-grow: 1;
+            text-align: center;
+        }
+        /* Cart Button on Top Right */
+        .cart-view {
+            background: #ff5722;
+            color: white;
+            padding: 10px 15px;
+            font-size: 16px;
+            font-weight: bold;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            text-decoration: none;
+            transition: all 0.3s ease-in-out;
+            text-transform: uppercase;
+        }
+        .cart-view:hover {
+            background: #e64a19;
+            transform: scale(1.1);
+        }
+        /* Centering the Products */
+        .container {
+            width: 80%;
+            margin: 20px auto;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        /* Product Cards */
+        .product-card {
+            background: white;
+            border-radius: 8px;
+            padding: 15px;
+            margin: 10px;
+            width: 250px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            text-align: left;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .product-card img {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+            border-radius: 5px;
+        }
+        .product-card h2 {
+            font-size: 18px;
+            margin: 10px 0;
+            text-align: center;
+        }
+        .product-card p {
+            font-size: 14px;
+            color: #555;
+        }
+        .price {
+            font-weight: bold;
+            color: #0073e6;
+            font-size: 16px;
+        }
+        .stock {
+            font-size: 14px;
+            color: green;
+        }
+        /* Buttons */
+        .btn {
+            padding: 8px 10px;
+            font-size: 14px;
+            font-weight: bold;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            text-decoration: none;
+            transition: background 0.3s ease;
+            margin: 5px;
+            display: inline-block;
+        }
+        .cart-btn {
+            background: #ff9800;
+            color: white;
+            padding: 10px 15px;
+            font-size: 16px;
+            font-weight: bold;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            text-align: center;
+            text-decoration: none;
+            transition: all 0.3s ease-in-out;
+            display: inline-block;
+            width: 80%;
+            text-transform: uppercase;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        .cart-btn:hover {
+            background: #e68900;
+            transform: scale(1.05);
+            box-shadow: 0 6px 10px rgba(0, 0, 0, 0.2);
+        }
+        /* Responsive Fixes */
+        @media (max-width: 600px) {
+            .header {
+                flex-direction: column;
+                padding: 15px;
+            }
+            .cart-view {
+                margin-top: 10px;
+                width: 80%;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header with View Cart Button -->
+    <div class="header">
+        <a href="{% url 'home' %}"><h1>Healthcare Products</h1></a>
+        <a href="{% url 'view_cart' %}" class="cart-view">🛒 View Cart</a>
+    </div>
+
+    <div class="container">
+        {% for product in products %}
+            <div class="product-card">
+                {% if product.image %}
+                    <img src="{{ product.image.url }}" alt="{{ product.title }}">
+                {% else %}
+                    <img src="https://via.placeholder.com/250x180?text=No+Image" alt="No Image">
+                {% endif %}
+                <h2>{{ product.title }}</h2>
+                <p>{{ product.description|truncatewords:20 }}</p>
+                <p class="price">Price: Rs {{ product.price }}</p>
+                <p class="stock">Stock: {{ product.stock }}</p>
+
+                <a href="{% url 'add_to_cart' product_id=product.id %}" class="btn cart-btn">
+                    🛒 Add to Cart
+                </a>
+            </div>
+        {% endfor %}
+    </div>
+
+</body>
+</html>
