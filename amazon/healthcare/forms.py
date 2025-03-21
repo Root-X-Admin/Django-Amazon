@@ -4,4 +4,7 @@ from django import forms
 class ProductForm(forms.ModelForm):
     class Meta:
         model = Product
-        fields = '__all__'
+        fields = ['title', 'description', 'price', 'image', 'stock']
+        widgets = {
+            'image': forms.ClearableFileInput(attrs={'accept': 'product_image/*'})
+        }

@@ -15,13 +15,12 @@ def product_list(request):
         form = ProductForm(request.POST, request.FILES)
         if form.is_valid():
             form.save()
-            return redirect('product_list')
     return render(request, 'healthcare/product_list.html', {'products': products, 'form': form})
 
 def update_product(request, product_id):
     product = get_object_or_404(Product, id=product_id)  # Correct variable name
     if request.method == 'POST':
-        form = ProductForm(request.POST, instance=product)  # Use `product`
+        form = ProductForm(request.POST, request.FILES, instance=product)  # Use `product`
         if form.is_valid():
             form.save()
             return redirect('product_list')
